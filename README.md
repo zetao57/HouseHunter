@@ -20,3 +20,20 @@ npm run dev
 ```
 
 在 `.env.local` 中配置高德开放平台 Web 服务 Key。未配置时仍可手动填写地址和经纬度。
+
+## Docker with SQLite persistence
+
+Run the app with a SQLite database stored in a local folder:
+
+```bash
+docker compose up --build
+```
+
+The app is available at http://localhost:8080 and the database is mounted at `./data/househunter.sqlite3`.
+
+To pass the AMap key at build time:
+
+```bash
+VITE_AMAP_KEY=your_amap_key docker compose up --build
+```
+

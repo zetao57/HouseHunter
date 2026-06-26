@@ -1,0 +1,13 @@
+services:
+  househunter:
+    build:
+      context: .
+      args:
+        VITE_AMAP_KEY: ${VITE_AMAP_KEY:-}
+    ports:
+      - "8080:80"
+    environment:
+      DATABASE_PATH: /data/househunter.sqlite3
+    volumes:
+      - ./data:/data
+    restart: unless-stopped

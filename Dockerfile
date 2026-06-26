@@ -12,10 +12,17 @@ ENV VITE_AMAP_KEY=${VITE_AMAP_KEY}
 
 RUN npm run build
 
-FROM nginx:alpine AS production
+FROM python:3.13-alpine AS production
 
-COPY --from=build /app/dist /usr/share/nginx/html
+WORKDIR /app
 
+ENV DATABASE_PATH=/data/househunter.sqlite3
+ENV PORT=80
+
+COPY server.py ./server.py
+COPY --from=build /app/dist ./dist
+
+VOLUME ["/data"]
 EXPOSE 80
 
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["python", "server.py"]
